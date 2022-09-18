@@ -129,13 +129,25 @@ namespace WordPressPCL.Utility
 
         internal async Task<(TClass, HttpResponseMessage)> PostRequestAsync<TClass>(string route, HttpContent postBody, bool isAuthRequired = true, bool ignoreDefaultPath = false)
             where TClass : class
+        { 
+            return await HttpMethodRequestAsync<TClass>(HttpMethod.Post, route, postBody, isAuthRequired, ignoreDefaultPath).ConfigureAwait(false);
+        }
+
+        internal async Task<(TClass, HttpResponseMessage)> PutRequestAsync<TClass>(string route, HttpContent putBody, bool isAuthRequired = true, bool ignoreDefaultPath = false)
+            where TClass : class
+        {
+            return await HttpMethodRequestAsync<TClass>(HttpMethod.Put, route, putBody, isAuthRequired, ignoreDefaultPath).ConfigureAwait(false);
+        }
+
+        private async Task<(TClass, HttpResponseMessage)> HttpMethodRequestAsync<TClass>(HttpMethod method, string route, HttpContent content, bool isAuthRequired = true, bool ignoreDefaultPath = false)
+            where TClass : class
         {
             route = ignoreDefaultPath ? route : $"{_defaultPath}{route}";
             HttpResponseMessage response;
-            using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, route))
+            using (var requestMessage = new HttpRequestMessage(method, route))
             {
                 SetAuthHeader(isAuthRequired, requestMessage);
-                requestMessage.Content = postBody;
+                requestMessage.Content = content;
                 response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
             }
 

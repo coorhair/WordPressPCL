@@ -536,4 +536,178 @@ namespace WordPressPCL.Models
         [EnumMember(Value = "text")]
         Text
     }
+
+    /// <summary>
+    /// Sort products collection by object attribute. (WooCommerce)
+    /// </summary>
+    /// <remarks>Default: date</remarks>
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum ProductsOrderBy
+    {
+        /// <summary>
+        /// Order By Date
+        /// </summary>
+        [EnumMember(Value = "date")]
+        Date,
+
+        /// <summary>
+        /// Order By Id
+        /// </summary>
+        [EnumMember(Value = "id")]
+        Id,
+
+        /// <summary>
+        /// Order By Include
+        /// </summary>
+        [EnumMember(Value = "include")]
+        Include,
+
+        /// <summary>
+        /// Order By Title
+        /// </summary>
+        [EnumMember(Value = "title")]
+        Title,
+
+        /// <summary>
+        /// Order By Slug
+        /// </summary>
+        [EnumMember(Value = "slug")]
+        Slug,
+
+        /// <summary>
+        /// Order By Price
+        /// </summary>
+        [EnumMember(Value = "price")]
+        Price,
+
+        /// <summary>
+        /// Order By Popularity
+        /// </summary>
+        [EnumMember(Value = "popularity")]
+        Popularity,
+
+        /// <summary>
+        /// Order By Rating
+        /// </summary>
+        [EnumMember(Value = "rating")]
+        Rating
+    }
+
+    /// <summary>
+    /// Filter product by status (WooCommerce)
+    /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum ProductStatus
+    {
+        /// <summary>
+        /// Publish
+        /// </summary>
+        [EnumMember(Value = "publish")]
+        Publish,
+
+        /// <summary>
+        /// Private
+        /// </summary>
+        [EnumMember(Value = "private")]
+        Private,
+
+        /// <summary>
+        /// Draft
+        /// </summary>
+        [EnumMember(Value = "draft")]
+        Draft,
+
+        /// <summary>
+        /// Pending
+        /// </summary>
+        [EnumMember(Value = "pending")]
+        Pending,
+
+        /// <summary>
+        /// Any
+        /// </summary>
+        [EnumMember(Value = "any")]
+        Any
+    }
+
+    /// <summary>
+    /// Filter product by type (WooCommerce)
+    /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum ProductType
+    {
+        /// <summary>
+        /// Simple
+        /// </summary>
+        [EnumMember(Value = "simple")]
+        Simple,
+
+        /// <summary>
+        /// Grouped
+        /// </summary>
+        [EnumMember(Value = "grouped")]
+        Grouped,
+
+        /// <summary>
+        /// External
+        /// </summary>
+        [EnumMember(Value = "external")]
+        External,
+
+        /// <summary>
+        /// Variable
+        /// </summary>
+        [EnumMember(Value = "variable")]
+        Variable
+    }
+
+    /// <summary>
+    /// Filter product by tax (WooCommerce)
+    /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum TaxClass
+    {
+        /// <summary>
+        /// Standard
+        /// </summary>
+        [EnumMember(Value = "standard")]
+        Standard,
+
+        /// <summary>
+        /// Reduced Rate
+        /// </summary>
+        [EnumMember(Value = "reduced-rate")]
+        ReducedRate,
+
+        /// <summary>
+        /// Zero Rate
+        /// </summary>
+        [EnumMember(Value = "zero-rate")]
+        ZeroRate
+    }
+
+    /// <summary>
+    /// Filter product by stock status (WooCommerce)
+    /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum StockStatus
+    {
+        /// <summary>
+        /// In stock
+        /// </summary>
+        [EnumMember(Value = "instock")]
+        InStock,
+
+        /// <summary>
+        /// Out of Stock
+        /// </summary>
+        [EnumMember(Value = "outofstock")]
+        OutOfStock,
+
+        /// <summary>
+        /// On Back Order
+        /// </summary>
+        [EnumMember(Value = "onbackorder")]
+        OnBackOrder
+    }
 }

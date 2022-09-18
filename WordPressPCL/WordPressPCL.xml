@@ -160,13 +160,19 @@
             Is object must be force deleted
             </summary>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.#ctor(WordPressPCL.Utility.HttpHelper,System.String,System.Boolean)">
+        <member name="P:WordPressPCL.Client.CRUDOperation`2.IgnoreDefaultPath">
+            <summary>
+            default path should be ignored when build endpoint
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.#ctor(WordPressPCL.Utility.HttpHelper,System.String,System.Boolean,System.Boolean)">
             <summary>
             Constructor
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
             <param name="methodPath">path to endpoint, EX. posts</param>
             <param name="forceDeletion">is objects must be force deleted</param>
+            <param name="ignoreDefaultPath">default path should be ignored when build endpoint</param>
         </member>
         <member name="M:WordPressPCL.Client.CRUDOperation`2.CreateAsync(`0)">
             <summary>
@@ -218,6 +224,13 @@
         <member name="M:WordPressPCL.Client.CRUDOperation`2.UpdateAsync(`0)">
             <summary>
             Update Entity
+            </summary>
+            <param name="Entity">Entity object</param>
+            <returns>Updated object</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.Update2Async(`0)">
+            <summary>
+            Update Entity using PUT method
             </summary>
             <param name="Entity">Entity object</param>
             <returns>Updated object</returns>
@@ -574,6 +587,61 @@
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
             <returns>Entity by Id</returns>
+        </member>
+        <member name="T:WordPressPCL.Client.Products">
+            <summary>
+            Implement client to query WooCommerce products
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Products.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="M:WordPressPCL.Client.Products.ListProductsAsync(WordPressPCL.Utility.ProductsQueryBuilder,System.Boolean)">
+            <summary>
+            List products by filter conditions
+            </summary>
+            <param name="filter">conditions to filter return products</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <returns>List of products</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Products.CreateProductAsync(WordPressPCL.Models.Product)">
+            <summary>
+            Create new product
+            </summary>
+            <param name="entity">product for creating</param>
+            <returns>product detail</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Products.GetProductAsync(System.Object,System.Boolean)">
+            <summary>
+            Get product detail
+            </summary>
+            <param name="productId">product ID</param>
+            <param name="useAuth">send request with authentication header</param>
+            <returns>product detail</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Products.UpdateProductAsync(WordPressPCL.Models.Product)">
+            <summary>
+            Update product data
+            </summary>
+            <param name="entity">product for updating</param>
+            <returns>product detail</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Products.DeleteProductAsync(System.Object,System.Boolean)">
+            <summary>
+            Delete product
+            </summary>
+            <param name="productId">product for deleting</param>
+            <param name="force">Use true whether to permanently delete the product, Default is false.</param>
+            <returns>deleting failure or success</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Products.GetCountAsync">
+            <summary>
+            Count total products
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:WordPressPCL.Client.Settings">
             <summary>
@@ -960,6 +1028,66 @@
             Context: view, edit, embed
             </remarks>
         </member>
+        <member name="T:WordPressPCL.Models.Billing">
+            <summary>
+            WooCommerce Customer Billing
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Billing.FirstName">
+            <summary>
+            First name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Billing.LastName">
+            <summary>
+            Last name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Billing.Company">
+            <summary>
+            Company name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Billing.Address1">
+            <summary>
+            Address line 1
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Billing.Address2">
+            <summary>
+            Address line 2
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Billing.City">
+            <summary>
+            City name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Billing.State">
+            <summary>
+            ISO code or name of the state, province or district.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Billing.PostCode">
+            <summary>
+            Postal code.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Billing.Country">
+            <summary>
+            ISO code of the country.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Billing.Email">
+            <summary>
+            Email address.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Billing.Phone">
+            <summary>
+            Phone number.
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.Category">
             <summary>
             Terms of the type category
@@ -1139,6 +1267,281 @@
             <summary>
             The depth of a comment
             0 is a top level comments without parent
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.Coupon">
+            <summary>
+            WooCommerce Coupon
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.Code">
+            <summary>
+            Coupon code.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.Amount">
+            <summary>
+            The amount of discount. Should always be numeric, even if setting a percentage.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.DateCreated">
+            <summary>
+            The date the coupon was created, in the site's timezone.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.DateCreatedGMT">
+            <summary>
+            The date the coupon was created, as GMT.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.DateModified">
+            <summary>
+            The date the coupon was last modified, in the site's timezone.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.DateModifiedGMT">
+            <summary>
+            The date the coupon was last modified, as GMT.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.DiscountType">
+            <summary>
+            Determines the type of discount that will be applied. Options: percent, fixed_cart and fixed_product. Default is fixed_cart.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.Description">
+            <summary>
+            Coupon description
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.DateExpires">
+            <summary>
+            The date the coupon expires, in the site's timezone.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.DateExpiresGMT">
+            <summary>
+            The date the coupon expires, as GMT.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.UsageCount">
+            <summary>
+            Number of times the coupon has been used already.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.IndividualUse">
+            <summary>
+            If true, the coupon can only be used individually. Other applied coupons will be removed from the cart. Default is false.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.ProductIds">
+            <summary>
+            List of product IDs the coupon can be used on.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.ExcludedProductIds">
+            <summary>
+            List of product IDs the coupon cannot be used on.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.UsageLimit">
+            <summary>
+            How many times the coupon can be used in total.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.UsageLimitPerUser">
+            <summary>
+            How many times the coupon can be used per customer.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.LimitUsageToXItems">
+            <summary>
+            Max number of items in the cart the coupon can be applied to.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.FreeShipping">
+            <summary>
+            If true and if the free shipping method requires a coupon, this coupon will enable free shipping. Default is false.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.ProductCategories">
+            <summary>
+            List of category IDs the coupon applies to.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.ExcludedProductCategories">
+            <summary>
+            List of category IDs the coupon does not apply to.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.ExcludeSaleItems">
+            <summary>
+            If true, this coupon will not be applied to items that have sale prices. Default is false.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.MinimumAmount">
+            <summary>
+            Minimum order amount that needs to be in the cart before coupon applies.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.MaximumAmount">
+            <summary>
+            Maximum order amount allowed when using the coupon.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.EmailRestrictions">
+            <summary>
+            List of email addresses that can use this coupon.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.UsedBy">
+            <summary>
+            List of user IDs (or guest email addresses) that have used the coupon.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Coupon.Metadata">
+            <summary>
+            Meta data.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.Customer">
+            <summary>
+            WooCommerce Customer
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Customer.DateCreated">
+            <summary>
+            The date the customer was created, in the site's timezone.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Customer.DateCreatedGMT">
+            <summary>
+            The date the customer was created, as GMT.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Customer.DateModified">
+            <summary>
+            The date the customer was last modified, in the site's timezone.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Customer.DateModifiedGMT">
+            <summary>
+            The date the customer was last modified, as GMT.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Customer.Email">
+            <summary>
+            The email address for the customer.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Customer.FirstName">
+            <summary>
+            Customer first name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Customer.LastName">
+            <summary>
+            Customer last name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Customer.Role">
+            <summary>
+            Customer role.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Customer.UserName">
+            <summary>
+            Customer login name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Customer.Password">
+            <summary>
+            Customer password.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Customer.Billing">
+            <summary>
+            List of billing address data
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Customer.Shipping">
+            <summary>
+            List of shipping address data.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Customer.IsPayingCustomer">
+            <summary>
+            Is the customer a paying customer?
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Customer.AvatarUrl">
+            <summary>
+            Avatar URL.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Customer.Metadata">
+            <summary>
+            Meta data
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.DefaultAttribute">
+            <summary>
+            WooCommerce Product default Attribute
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.DefaultAttribute.Id">
+            <summary>
+            Attribute ID.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.DefaultAttribute.Name">
+            <summary>
+            Attribute name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.DefaultAttribute.Option">
+            <summary>
+            Selected attribute term name.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.Dimension">
+            <summary>
+            WooCommerce Product Dimension
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Dimension.Length">
+            <summary>
+            Product length
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Dimension.Width">
+            <summary>
+            Product width
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Dimension.Height">
+            <summary>
+            Product height
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.Download">
+            <summary>
+            WooCommerce Product Download
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Download.Id">
+            <summary>
+            File ID
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Download.Name">
+            <summary>
+            File name
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Download.File">
+            <summary>
+            File URL
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.Embedded">
@@ -1606,6 +2009,147 @@
             Text
             </summary>
         </member>
+        <member name="T:WordPressPCL.Models.ProductsOrderBy">
+            <summary>
+            Sort products collection by object attribute. (WooCommerce)
+            </summary>
+            <remarks>Default: date</remarks>
+        </member>
+        <member name="F:WordPressPCL.Models.ProductsOrderBy.Date">
+            <summary>
+            Order By Date
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.ProductsOrderBy.Id">
+            <summary>
+            Order By Id
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.ProductsOrderBy.Include">
+            <summary>
+            Order By Include
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.ProductsOrderBy.Title">
+            <summary>
+            Order By Title
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.ProductsOrderBy.Slug">
+            <summary>
+            Order By Slug
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.ProductsOrderBy.Price">
+            <summary>
+            Order By Price
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.ProductsOrderBy.Popularity">
+            <summary>
+            Order By Popularity
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.ProductsOrderBy.Rating">
+            <summary>
+            Order By Rating
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.ProductStatus">
+            <summary>
+            Filter product by status (WooCommerce)
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.ProductStatus.Publish">
+            <summary>
+            Publish
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.ProductStatus.Private">
+            <summary>
+            Private
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.ProductStatus.Draft">
+            <summary>
+            Draft
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.ProductStatus.Pending">
+            <summary>
+            Pending
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.ProductStatus.Any">
+            <summary>
+            Any
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.ProductType">
+            <summary>
+            Filter product by type (WooCommerce)
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.ProductType.Simple">
+            <summary>
+            Simple
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.ProductType.Grouped">
+            <summary>
+            Grouped
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.ProductType.External">
+            <summary>
+            External
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.ProductType.Variable">
+            <summary>
+            Variable
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.TaxClass">
+            <summary>
+            Filter product by tax (WooCommerce)
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.TaxClass.Standard">
+            <summary>
+            Standard
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.TaxClass.ReducedRate">
+            <summary>
+            Reduced Rate
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.TaxClass.ZeroRate">
+            <summary>
+            Zero Rate
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.StockStatus">
+            <summary>
+            Filter product by stock status (WooCommerce)
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.StockStatus.InStock">
+            <summary>
+            In stock
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.StockStatus.OutOfStock">
+            <summary>
+            Out of Stock
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.StockStatus.OnBackOrder">
+            <summary>
+            On Back Order
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.Exceptions.WPException">
             <summary>
             WordPress request exceptions
@@ -1696,6 +2240,51 @@
         <member name="P:WordPressPCL.Models.Exceptions.WPUnexpectedException.ResponseBody">
             <summary>
             The response body (if any) that was returned with the error status
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.Image">
+            <summary>
+            WooCommerce Product/Category Image
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Image.Id">
+            <summary>
+            Image ID.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Image.DateCreated">
+            <summary>
+            The date the image was created, in the site's timezone.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Image.DateCreatedGMT">
+            <summary>
+            The date the image was created, as GMT.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Image.DateModified">
+            <summary>
+            The date the image was last modified, in the site's timezone.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Image.DateModifiedGMT">
+            <summary>
+            The date the image was last modified, as GMT.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Image.Source">
+            <summary>
+            Image URL
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Image.Name">
+            <summary>
+            Image name
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Image.AltText">
+            <summary>
+            Image alternative text.
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.ImageMeta">
@@ -2132,6 +2721,26 @@
         <member name="P:WordPressPCL.Models.MediaSize.SourceUrl">
             <summary>
             Url of source media
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.MetaData">
+            <summary>
+            Use in WooCommerce
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MetaData.Id">
+            <summary>
+            Meta ID.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MetaData.Key">
+            <summary>
+            Meta key
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.MetaData.Value">
+            <summary>
+            Meta value
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.Page">
@@ -2725,6 +3334,494 @@
             Default constructor
             </summary>
         </member>
+        <member name="T:WordPressPCL.Models.Product">
+            <summary>
+            WooCommerce Product
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.Name">
+            <summary>
+            Product name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.Slug">
+            <summary>
+            Product slug.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.Type">
+            <summary>
+            Product type. Options: simple, grouped, external and variable. Default is simple.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.Featured">
+            <summary>
+            Featured product. Default is false.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.CatalogVisibility">
+            <summary>
+            Catalog visibility. Options: visible, catalog, search and hidden. Default is visible.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.ShortDescription">
+            <summary>
+            Product short description.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.PriceHtml">
+            <summary>
+            Price formatted in HTML.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.TotalSales">
+            <summary>
+            Amount of sales
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.ExternalUrl">
+            <summary>
+            Product external URL. Only for external products.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.ButtonText">
+            <summary>
+            Product external button text. Only for external products.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.SoldIndividually">
+            <summary>
+            Allow one item to be bought in a single order. Default is false.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.ShippingRequired">
+            <summary>
+            Shows if the product need to be shipped.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.ShippingTaxable">
+            <summary>
+            Shows whether or not the product shipping is taxable.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.ReviewsAllowed">
+            <summary>
+            Allow reviews. Default is true.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.AverageRating">
+            <summary>
+            Reviews average rating
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.RatingCount">
+            <summary>
+            Amount of reviews that the product have.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.RelatedIds">
+            <summary>
+            List of related products IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.UpSellIds">
+            <summary>
+            List of up-sell products IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.CrossSellIds">
+            <summary>
+            List of cross-sell products IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.ParentId">
+            <summary>
+            Product parent ID.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.PurchaseNote">
+            <summary>
+            Optional note to send the customer after purchase.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.Categories">
+            <summary>
+            List of categories. 
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.Tags">
+            <summary>
+            List of tags. 
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.Images">
+            <summary>
+            List of images. 
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.Image">
+            hide this field from super class 
+        </member>
+        <member name="P:WordPressPCL.Models.Product.DefaultAttributes">
+            <summary>
+            Defaults variation attributes 
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.Variations">
+            <summary>
+            List of variations IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Product.GroupedProducts">
+            <summary>
+            List of grouped products ID.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.ProductAttribute">
+            <summary>
+            WooCommerce Product Attribute
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductAttribute.Id">
+            <summary>
+            Attribute ID.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductAttribute.Name">
+            <summary>
+            Attribute name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductAttribute.Position">
+            <summary>
+            Attribute position.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductAttribute.Visible">
+            <summary>
+            Define if the attribute is visible on the "Additional information" tab in the product's page. Default is false.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductAttribute.Variation">
+            <summary>
+            Define if the attribute can be used as variation. Default is false
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductAttribute.Options">
+            <summary>
+            List of available term names of the attribute.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.ProductCategory">
+            <summary>
+            WooCommerce Category
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductCategory.Name">
+            <summary>
+            Category name
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductCategory.Slug">
+            <summary>
+            Category slug
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductCategory.Parent">
+            <summary>
+            The ID for the parent of the resource.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductCategory.Description">
+            <summary>
+            HTML description of the resource.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductCategory.Display">
+            <summary>
+            Category archive display type. Options: default, products, subcategories and both. Default is default
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductCategory.Image">
+            <summary>
+            Image data. 
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductCategory.MenuOrder">
+            <summary>
+            Menu order, used to custom sort the resource.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductCategory.Count">
+            <summary>
+            Number of published products for the resource.
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.ProductTag">
+            <summary>
+            WooCommerce Product Tag
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductTag.Id">
+            <summary>
+            Tag ID
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductTag.Name">
+            <summary>
+            Tag name
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductTag.Slug">
+            <summary>
+            Tag slug
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.ProductVariation">
+            <summary>
+            WooCommerce Product Variation
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.PermanentLink">
+            <summary>
+            Variation URL
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.DateCreated">
+            <summary>
+            The date the product was created, in the site's timezone
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.DateCreatedGMT">
+            <summary>
+            The date the product was created, as GMT.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.DateModified">
+            <summary>
+            The date the product was last modified, in the site's timezone
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.DateModifiedGMT">
+            <summary>
+            The date the product was last modified, as GMT
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.Status">
+            <summary>
+            Product status (post status). Options: draft, pending, private and publish. Default is publish
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.Description">
+            <summary>
+            Product description.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.SKU">
+            <summary>
+            Unique identifier
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.Price">
+            <summary>
+            Current product price.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.RegularPrice">
+            <summary>
+            Product regular price.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.SalePrice">
+            <summary>
+            Product sale price.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.DateOnSaleFrom">
+            <summary>
+            Start date of sale price, in the site's timezone.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.DateOnSaleFromGMT">
+            <summary>
+            Start date of sale price, as GMT.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.DateOnSaleTo">
+            <summary>
+            End date of sale price, in the site's timezone.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.DateOnSaleToGMT">
+            <summary>
+            End date of sale price, as GMT.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.OnSale">
+            <summary>
+            Shows if the product is on sale.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.Purchasable">
+            <summary>
+            Shows if the product can be bought.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.IsVirtual">
+            <summary>
+            If the product is virtual. Default is false
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.DownLoadable">
+            <summary>
+            If the product is downloadable. Default is false.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.Downloads">
+            <summary>
+            List of downloadable files.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.DownloadLimit">
+            <summary>
+            Number of times downloadable files can be downloaded after purchase. Default is -1
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.DownloadExpiry">
+            <summary>
+            Number of days until access to downloadable files expires. Default is -1.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.TaxStatus">
+            <summary>
+            Tax status. Options: taxable, shipping and none. Default is taxable.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.TaxClass">
+            <summary>
+            Tax class.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.ManageStock">
+            <summary>
+            Stock management at product level. Default is false.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.StockQuantity">
+            <summary>
+            Stock quantity.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.StockStatus">
+            <summary>
+            Controls the stock status of the product. Options: instock, outofstock, onbackorder. Default is instock.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.BackOrders">
+            <summary>
+            If managing stock, this controls if backorders are allowed. Options: no, notify and yes. Default is no.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.BackOrdersAllowed">
+            <summary>
+            Shows if backorders are allowed.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.BackOrdered">
+            <summary>
+            Shows if the product is on backordered.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.Weight">
+            <summary>
+            Product weight.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.Dimensions">
+            <summary>
+            Product dimensions
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.ShippingClass">
+            <summary>
+            Shipping class slug.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.ShippingClassId">
+            <summary>
+            Shipping class ID.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.Image">
+            <summary>
+            Variation image data
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.Attributes">
+            <summary>
+            List of attributes. 
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.MenuOrder">
+            <summary>
+            Menu order, used to custom sort products
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ProductVariation.Metadata">
+            <summary>
+            Meta data
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.Review">
+            <summary>
+            WooCommerce Product Review
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Review.DateCreated">
+            <summary>
+            The date the review was created, in the site's timezone.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Review.DateCreatedGMT">
+            <summary>
+            The date the review was created, as GMT.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Review.ProductId">
+            <summary>
+            Unique identifier for the product that the review belongs to.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Review.Status">
+            <summary>
+            Status of the review. Options: approved, hold, spam, unspam, trash and untrash. Defaults to approved.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Review.Reviewer">
+            <summary>
+            Reviewer name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Review.ReviewerEmail">
+            <summary>
+            Reviewer email.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Review.Content">
+            <summary>
+            The content of the review.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Review.Rating">
+            <summary>
+            Review rating (0 to 5).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.Review.Verified">
+            <summary>
+            Shows if the reviewer bought the product or not.
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.Settings">
             <summary>
             WordPress main settings
@@ -2803,6 +3900,56 @@
         <member name="P:WordPressPCL.Models.Settings.DefaultCommentStatus">
             <summary>
             Default Comment Status
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.ShippingAddress">
+            <summary>
+            WooCommerce Customer Shipping Address
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ShippingAddress.FirstName">
+            <summary>
+            First name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ShippingAddress.LastName">
+            <summary>
+            Last name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ShippingAddress.Company">
+            <summary>
+            Company name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ShippingAddress.Address1">
+            <summary>
+            Address line 1
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ShippingAddress.Address2">
+            <summary>
+            Address line 2
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ShippingAddress.City">
+            <summary>
+            City name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ShippingAddress.State">
+            <summary>
+            ISO code or name of the state, province or district.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ShippingAddress.PostCode">
+            <summary>
+            Postal code.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.ShippingAddress.Country">
+            <summary>
+            ISO code of the country.
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.RenderedRawBase">
@@ -3927,6 +5074,146 @@
             Limit result set to items that are sticky.
             </summary>
         </member>
+        <member name="T:WordPressPCL.Utility.ProductsQueryBuilder">
+            <summary>
+            Query products by filters (WooCommerce)
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.Page">
+            <summary>
+            Current page of the collection.
+            </summary>
+            <remarks>Default: 1</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.PerPage">
+            <summary>
+            Maximum number of items to be returned in result set (1-100).
+            </summary>
+            <remarks>Default: 10</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.Search">
+            <summary>
+            Limit results to those matching a string.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.After">
+            <summary>
+            Limit response to resources published after a given ISO8601 compliant date.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.Before">
+            <summary>
+            Limit response to resources published before a given ISO8601 compliant date.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.Exclude">
+            <summary>
+            Ensure result set excludes specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.Include">
+            <summary>
+            Limit result set to specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.Offset">
+            <summary>
+            Offset the result set by a specific number of items.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.OrderBy">
+            <summary>
+            Sort collection by object attribute.
+            </summary>
+            <remarks>Default: date
+            One of: date, id, include, title, slug, price, popularity and rating</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.Parent">
+            <summary>
+            Limit result set to those of particular parent IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.ParentExclude">
+            <summary>
+            Limit result set to all items except those of a particular parent ID.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.Slug">
+            <summary>
+            Limit result set to products with a specific slug.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.Status">
+            <summary>
+            Limit result set to products assigned a specific status. Options: any, draft, pending, private and publish
+            </summary>
+            <remarks>Default: any</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.Type">
+            <summary>
+            Limit result set to products assigned a specific type. Options: simple, grouped, external and variable.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.SKU">
+            <summary>
+            Limit result set to products with a specific SKU.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.Featured">
+            <summary>
+            Limit result set to featured products.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.Category">
+            <summary>
+            Limit result set to products assigned a specific category ID.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.Tag">
+            <summary>
+            Limit result set to products assigned a specific tag ID.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.ShippingClass">
+            <summary>
+            Limit result set to products assigned a specific shipping class ID.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.Attribute">
+            <summary>
+            Limit result set to products with a specific attribute.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.AttributeTerm">
+            <summary>
+            Limit result set to products with a specific attribute term ID (required an assigned attribute).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.TaxClass">
+            <summary>
+            Limit result set to products with a specific tax class. Default options: standard, reduced-rate and zero-rate.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.OnSale">
+            <summary>
+            Limit result set to products on sale.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.MinPrice">
+            <summary>
+            Limit result set to products based on a minimum price.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.MaxPrice">
+            <summary>
+            Limit result set to products based on a maximum price.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductsQueryBuilder.StockStatus">
+            <summary>
+            Limit result set to products with specified stock status. Options: instock, outofstock and onbackorder.
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Utility.QueryBuilder">
             <summary>
             Query builder class. Use it for create custom query
@@ -4234,6 +5521,11 @@
         <member name="P:WordPressPCL.WordPressClient.Settings">
             <summary>
             Settings client interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.Products">
+            <summary>
+            WooCommerce Product interaction object
             </summary>
         </member>
         <member name="M:WordPressPCL.WordPressClient.#ctor(System.Uri,System.String)">
