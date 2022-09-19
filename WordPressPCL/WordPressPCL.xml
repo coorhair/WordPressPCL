@@ -588,6 +588,61 @@
             <param name="useAuth">Send request with authentication header</param>
             <returns>Entity by Id</returns>
         </member>
+        <member name="T:WordPressPCL.Client.ProductCategories">
+            <summary>
+            Implement client to query WooCommerce products
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.ProductCategories.#ctor(WordPressPCL.Utility.HttpHelper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        </member>
+        <member name="M:WordPressPCL.Client.ProductCategories.ListCategoriesAsync(WordPressPCL.Utility.ProductCategoriesQueryBuilder,System.Boolean)">
+            <summary>
+            List categories of products by filter conditions
+            </summary>
+            <param name="filter">conditions to filter return categories</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <returns>List of products</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.ProductCategories.CreateCategoryAsync(WordPressPCL.Models.ProductCategory)">
+            <summary>
+            Create new product's category
+            </summary>
+            <param name="entity">category for creating</param>
+            <returns>category detail</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.ProductCategories.GetCategoryAsync(System.Object,System.Boolean)">
+            <summary>
+            Get product's category detail
+            </summary>
+            <param name="categoryId">category ID</param>
+            <param name="useAuth">send request with authentication header</param>
+            <returns>product detail</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.ProductCategories.UpdateCategoryAsync(WordPressPCL.Models.ProductCategory)">
+            <summary>
+            Update product's category data
+            </summary>
+            <param name="entity">category for updating</param>
+            <returns>category detail</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.ProductCategories.DeleteCategoryAsync(System.Object,System.Boolean)">
+            <summary>
+            Delete product's category
+            </summary>
+            <param name="categoryId">category for deleting</param>
+            <param name="force">Required to be true, as resource does not support trashing.</param>
+            <returns>deleting failure or success</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.ProductCategories.GetCountAsync">
+            <summary>
+            Count total product categories
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:WordPressPCL.Client.Products">
             <summary>
             Implement client to query WooCommerce products
@@ -5074,6 +5129,65 @@
             Limit result set to items that are sticky.
             </summary>
         </member>
+        <member name="T:WordPressPCL.Utility.ProductCategoriesQueryBuilder">
+            <summary>
+            Query product categories by filters (WooCommerce)
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductCategoriesQueryBuilder.Page">
+            <summary>
+            Current page of the collection. 
+            </summary>
+            <remarks>Default is 1</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductCategoriesQueryBuilder.PerPage">
+            <summary>
+            Maximum number of items to be returned in result set. 
+            </summary>
+            <remarks>Default is 10</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductCategoriesQueryBuilder.Search">
+            <summary>
+            Limit results to those matching a string.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductCategoriesQueryBuilder.Exclude">
+            <summary>
+            Ensure result set excludes specific ids.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductCategoriesQueryBuilder.Include">
+            <summary>
+            Ensure result set excludes specific ids.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductCategoriesQueryBuilder.OrderBy">
+            <summary>
+            Sort collection by resource attribute. Options: id, include, name, slug, term_group, description and count. 
+            </summary>
+            <remarks>Default is name</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductCategoriesQueryBuilder.HideEmpty">
+            <summary>
+            Whether to hide resources not assigned to any products. 
+            </summary>
+            <remarks>Default is false</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductCategoriesQueryBuilder.Parent">
+            <summary>
+            Limit result set to resources assigned to a specific parent.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductCategoriesQueryBuilder.Product">
+            <summary>
+            Limit result set to resources assigned to a specific product.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ProductCategoriesQueryBuilder.Slug">
+            <summary>
+            Limit result set to resources with a specific slug.
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Utility.ProductsQueryBuilder">
             <summary>
             Query products by filters (WooCommerce)
@@ -5526,6 +5640,11 @@
         <member name="P:WordPressPCL.WordPressClient.Products">
             <summary>
             WooCommerce Product interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.ProductCategories">
+            <summary>
+            WooCommerce Product's Category interaction object
             </summary>
         </member>
         <member name="M:WordPressPCL.WordPressClient.#ctor(System.Uri,System.String)">
