@@ -24,6 +24,6 @@ namespace WordPressPCL.Models
         /// Meta value
         /// </summary>
         [JsonProperty("value")]
-        public string Value { get; set; }
+        public dynamic Value { get; set; }
     }
 }
