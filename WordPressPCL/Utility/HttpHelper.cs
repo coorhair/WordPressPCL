@@ -23,12 +23,12 @@ namespace WordPressPCL.Utility
         /// <summary>
         /// JSON Web Token
         /// </summary>
-        public string JWToken { get; set; }
+        public string? JWToken { get; set; }
 
         /// <summary>
         /// The Application Password to be used for authentication
         /// </summary>
-        internal string ApplicationPassword { get; set; }
+        internal string? ApplicationPassword { get; set; }
 
         /// <summary>
         /// Authentication Method
@@ -38,13 +38,13 @@ namespace WordPressPCL.Utility
         /// <summary>
         /// The username to be used with the Application Password
         /// </summary>
-        internal string UserName { get; set; }
+        internal string? UserName { get; set; }
 
         /// <summary>
         /// Function called when a HttpRequest response is read
         /// Executed before trying to convert json content to a TClass object.
         /// </summary>
-        public Func<string, string> HttpResponsePreProcessing { get; set; }
+        public Func<string, string>? HttpResponsePreProcessing { get; set; }
 
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace WordPressPCL.Utility
         /// <summary>
         /// Headers returns by WP and http server from last response
         /// </summary>
-        public HttpResponseHeaders LastResponseHeaders { get; set; }
+        public HttpResponseHeaders? LastResponseHeaders { get; set; }
 
         /// <summary>
         /// Constructor
@@ -93,7 +93,18 @@ namespace WordPressPCL.Utility
             };
         }
 
-        internal async Task<TClass> GetRequestAsync<TClass>(string route, bool embed, bool isAuthRequired = false, bool ignoreDefaultPath = false)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ignoreDefaultPath"></param>
+        /// <returns></returns>
+        public string GetBaseAddress(bool ignoreDefaultPath = false)
+        {
+            var baseAddress = _httpClient.BaseAddress.ToString();
+            return ignoreDefaultPath ? baseAddress : $"{baseAddress}{_defaultPath}";
+        }
+
+        internal async Task<TClass?> GetRequestAsync<TClass>(string route, bool embed, bool isAuthRequired = false, bool ignoreDefaultPath = false)
             where TClass : class
         {
             route = ignoreDefaultPath ? route : $"{_defaultPath}{route}";
@@ -127,19 +138,19 @@ namespace WordPressPCL.Utility
             }
         }
 
-        internal async Task<(TClass, HttpResponseMessage)> PostRequestAsync<TClass>(string route, HttpContent postBody, bool isAuthRequired = true, bool ignoreDefaultPath = false)
+        internal async Task<(TClass, HttpResponseMessage)> PostRequestAsync<TClass>(string route, HttpContent? postBody, bool isAuthRequired = true, bool ignoreDefaultPath = false)
             where TClass : class
         { 
             return await HttpMethodRequestAsync<TClass>(HttpMethod.Post, route, postBody, isAuthRequired, ignoreDefaultPath).ConfigureAwait(false);
         }
 
-        internal async Task<(TClass, HttpResponseMessage)> PutRequestAsync<TClass>(string route, HttpContent putBody, bool isAuthRequired = true, bool ignoreDefaultPath = false)
+        internal async Task<(TClass, HttpResponseMessage)> PutRequestAsync<TClass>(string route, HttpContent? putBody, bool isAuthRequired = true, bool ignoreDefaultPath = false)
             where TClass : class
         {
             return await HttpMethodRequestAsync<TClass>(HttpMethod.Put, route, putBody, isAuthRequired, ignoreDefaultPath).ConfigureAwait(false);
         }
 
-        private async Task<(TClass, HttpResponseMessage)> HttpMethodRequestAsync<TClass>(HttpMethod method, string route, HttpContent content, bool isAuthRequired = true, bool ignoreDefaultPath = false)
+        private async Task<(TClass, HttpResponseMessage)> HttpMethodRequestAsync<TClass>(HttpMethod method, string route, HttpContent? content, bool isAuthRequired = true, bool ignoreDefaultPath = false)
             where TClass : class
         {
             route = ignoreDefaultPath ? route : $"{_defaultPath}{route}";

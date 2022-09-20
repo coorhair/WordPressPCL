@@ -29,22 +29,22 @@ namespace WordPressPCL.Models
         /// Status of the review. Options: approved, hold, spam, unspam, trash and untrash. Defaults to approved.
         /// </summary>
         [JsonProperty("status", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Status { get; set; }
+        public string? Status { get; set; }
         /// <summary>
         /// Reviewer name.
         /// </summary>
         [JsonProperty("reviewer", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Reviewer { get; set; }
+        public string? Reviewer { get; set; }
         /// <summary>
         /// Reviewer email.
         /// </summary>
         [JsonProperty("reviewer_email", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string ReviewerEmail { get; set; }
+        public string? ReviewerEmail { get; set; }
         /// <summary>
         /// The content of the review.
         /// </summary>
         [JsonProperty("review", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Content { get; set; }
+        public string? Content { get; set; }
         /// <summary>
         /// Review rating (0 to 5).
         /// </summary>
@@ -55,7 +55,9 @@ namespace WordPressPCL.Models
         /// </summary>
         [JsonProperty("verified", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool Verified { get; set; }
-
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public Review() { }
     }
 }

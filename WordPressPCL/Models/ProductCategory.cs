@@ -14,12 +14,12 @@ namespace WordPressPCL.Models
         /// Category name
         /// </summary>
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         /// <summary>
         /// Category slug
         /// </summary>
         [JsonProperty("slug")]
-        public string Slug { get; set; }
+        public string? Slug { get; set; }
         /// <summary>
         /// The ID for the parent of the resource.
         /// </summary>
@@ -29,12 +29,12 @@ namespace WordPressPCL.Models
         /// HTML description of the resource.
         /// </summary>
         [JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
         /// <summary>
         /// Category archive display type. Options: default, products, subcategories and both. Default is default
         /// </summary>
         [JsonProperty("display", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Display { get; set; }
+        public string? Display { get; set; }
         /// <summary>
         /// Image data. 
         /// </summary>

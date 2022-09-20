@@ -38,8 +38,10 @@ namespace WordPressPCL.Client
         /// Create Entity
         /// </summary>
         /// <param name="Entity">Entity object</param>
+        /// <param name="consumerKey"></param>
+        /// <param name="consumerSecret"></param>
         /// <returns>Created object</returns>
-        public virtual async Task<User> CreateAsync(User Entity)
+        public virtual async Task<User?> CreateAsync(User Entity, string? consumerKey = null, string? consumerSecret = null)
         {
             var entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
             using var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
@@ -51,8 +53,10 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="consumerKey"></param>
+        /// <param name="consumerSecret"></param>
         /// <returns>Get latest users</returns>
-        public Task<IEnumerable<User>> GetAsync(bool embed = false, bool useAuth = false)
+        public Task<IEnumerable<User>?> GetAsync(bool embed = false, bool useAuth = false, string? consumerKey = null, string? consumerSecret = null)
         {
             return _httpHelper.GetRequestAsync<IEnumerable<User>>($"{METHOD_PATH}", embed, useAuth);
         }
@@ -62,17 +66,20 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="embed">Include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="consumerKey"></param>
+        /// <param name="consumerSecret"></param>
         /// <returns>List of all result</returns>
-        public async Task<IEnumerable<User>> GetAllAsync(bool embed = false, bool useAuth = false)
+        public async Task<IEnumerable<User>?> GetAllAsync(bool embed = false, bool useAuth = false, string? consumerKey = null, string? consumerSecret = null)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
             var entities = (await _httpHelper.GetRequestAsync<IEnumerable<User>>($"{METHOD_PATH}?per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList();
-            if (_httpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") && Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture) > 1)
+            if (_httpHelper.LastResponseHeaders != null && _httpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") 
+                && Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture) > 1)
             {
                 int totalpages = Convert.ToInt32(_httpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture);
                 for (int page = 2; page <= totalpages; page++)
                 {
-                    entities.AddRange((await _httpHelper.GetRequestAsync<IEnumerable<User>>($"{METHOD_PATH}?per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList());
+                    entities?.AddRange((await _httpHelper.GetRequestAsync<IEnumerable<User>>($"{METHOD_PATH}?per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList());
                 }
             }
             return entities;
@@ -84,8 +91,10 @@ namespace WordPressPCL.Client
         /// <param name="ID">ID</param>
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="consumerKey"></param>
+        /// <param name="consumerSecret"></param>
         /// <returns>Entity by Id</returns>
-        public Task<User> GetByIDAsync(object ID, bool embed = false, bool useAuth = false)
+        public Task<User?> GetByIDAsync(object ID, bool embed = false, bool useAuth = false, string? consumerKey = null, string? consumerSecret = null)
         {
             return _httpHelper.GetRequestAsync<User>($"{METHOD_PATH}/{ID}", embed, useAuth);
         }
@@ -95,8 +104,10 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="queryBuilder">Query builder with specific parameters</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="consumerKey"></param>
+        /// <param name="consumerSecret"></param>
         /// <returns>List of filtered result</returns>
-        public Task<IEnumerable<User>> QueryAsync(UsersQueryBuilder queryBuilder, bool useAuth = false)
+        public Task<IEnumerable<User>?> QueryAsync(UsersQueryBuilder queryBuilder, bool useAuth = false, string? consumerKey = null, string? consumerSecret = null)
         {
             return _httpHelper.GetRequestAsync<IEnumerable<User>>($"{METHOD_PATH}{queryBuilder.BuildQuery()}", false, useAuth);
         }
@@ -106,7 +117,7 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="Entity">Entity object</param>
         /// <returns>Updated object</returns>
-        public async Task<User> UpdateAsync(User Entity)
+        public async Task<User?> UpdateAsync(User Entity)
         {
             var entity = _httpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, _httpHelper.JsonSerializerSettings);
             using var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
@@ -119,7 +130,7 @@ namespace WordPressPCL.Client
         /// Get current User
         /// </summary>
         /// <returns>Current User</returns>
-        public Task<User> GetCurrentUser()
+        public Task<User?> GetCurrentUser()
         {
             return _httpHelper.GetRequestAsync<User>($"{METHOD_PATH}/me", true, true);
         }
@@ -169,7 +180,7 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="userId">User ID, defaults to "me"</param>
         /// <returns>List of registered Application Passwords (without the actual password)</returns>
-        public Task<List<ApplicationPassword>> GetApplicationPasswords(string userId = "me")
+        public Task<List<ApplicationPassword>?> GetApplicationPasswords(string userId = "me")
         {
             return _httpHelper.GetRequestAsync<List<ApplicationPassword>>($"{METHOD_PATH}/{userId}/{APPLICATION_PASSWORDS_PATH}", false, true);
         }

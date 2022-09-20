@@ -6,9 +6,9 @@ using WordPressPCL.Models;
 namespace WordPressPCL.Utility
 {
     /// <summary>
-    /// Query product categories by filters (WooCommerce)
+    /// Query customers by filters (WooCommerce)
     /// </summary>
-    public class ProductCategoriesQueryBuilder : QueryBuilder
+    public class CustomersQueryBuilder : QueryBuilder
     {
         /// <summary>
         /// Current page of the collection. 
@@ -26,43 +26,39 @@ namespace WordPressPCL.Utility
         /// Limit results to those matching a string.
         /// </summary>
         [QueryText("search")]
-        public string? Search { get; set; }
+        public string Search { get; set; }
         /// <summary>
         /// Ensure result set excludes specific ids.
         /// </summary>
         [QueryText("exclude")]
-        public List<int>? Exclude { get; set; }
+        public List<int> Exclude { get; set; }
         /// <summary>
         /// Ensure result set excludes specific ids.
         /// </summary>
         [QueryText("include")]
-        public List<int>? Include { get; set; }
+        public List<int> Include { get; set; }
         /// <summary>
-        /// Sort collection by resource attribute. Options: id, include, name, slug, term_group, description and count. 
+        /// Offset the result set by a specific number of items.
         /// </summary>
-        /// <remarks>Default is name</remarks>
+        [QueryText("offset")]
+        public int? Offset { get; set; }
+        /// <summary>
+        /// Sort collection by object attribute. Options: id, include, name and registered_date. 
+        /// </summary>
+        /// <remarks>Default is name.</remarks>
         [QueryText("orderby")]
-        public TermsOrderBy? OrderBy { get; set; }
+        public UsersOrderBy? OrderBy { get; set; }
         /// <summary>
-        /// Whether to hide resources not assigned to any products. 
+        /// Limit result set to resources with a specific email.
         /// </summary>
-        /// <remarks>Default is false</remarks>
-        [QueryText("hide_empty")]
-        public bool HideEmpty { get; set; }
+        [QueryText("email")]
+        public string Email { get; set; }
+
         /// <summary>
-        /// Limit result set to resources assigned to a specific parent.
+        /// Limit result set to resources with a specific role. Options: all, administrator, editor, author, contributor, subscriber, customer and shop_manager. 
         /// </summary>
-        [QueryText("parent")]
-        public int? Parent { get; set; }
-        /// <summary>
-        /// Limit result set to resources assigned to a specific product.
-        /// </summary>
-        [QueryText("product")]
-        public int? Product { get; set; }
-        /// <summary>
-        /// Limit result set to resources with a specific slug.
-        /// </summary>
-        [QueryText("slug")]
-        public string? Slug { get; set; }
+        /// <remarks>Default is customer.</remarks>
+        [QueryText("role")]
+        public CustomerRole? Role { get; set; }
     }
 }

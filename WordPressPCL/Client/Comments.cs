@@ -20,8 +20,8 @@ namespace WordPressPCL.Client
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
-        public Comments(HttpHelper HttpHelper) : base(HttpHelper, _methodPath)
+        /// <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+        public Comments(HttpHelper httpHelper) : base(httpHelper, _methodPath)
         {
         }
 
@@ -36,7 +36,7 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of comments for post</returns>
-        public Task<IEnumerable<Comment>> GetCommentsForPostAsync(int PostID, bool embed = false, bool useAuth = false)
+        public Task<IEnumerable<Comment>?> GetCommentsForPostAsync(int PostID, bool embed = false, bool useAuth = false)
         {
             return HttpHelper.GetRequestAsync<IEnumerable<Comment>>($"{_methodPath}?post={PostID}", embed, useAuth);
         }
@@ -48,17 +48,17 @@ namespace WordPressPCL.Client
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of comments for post</returns>
-        public async Task<IEnumerable<Comment>> GetAllCommentsForPostAsync(int PostID, bool embed = false, bool useAuth = false)
+        public async Task<IEnumerable<Comment>?> GetAllCommentsForPostAsync(int PostID, bool embed = false, bool useAuth = false)
         {
             //100 - Max comments per page in WordPress REST API, so this is hack with multiple requests
-            List<Comment> comments = (await HttpHelper.GetRequestAsync<IEnumerable<Comment>>($"{_methodPath}?post={PostID}&per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList();
-            if (HttpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") &&
+            List<Comment>? comments = (await HttpHelper.GetRequestAsync<IEnumerable<Comment>>($"{_methodPath}?post={PostID}&per_page=100&page=1", embed, useAuth).ConfigureAwait(false))?.ToList();
+            if (HttpHelper.LastResponseHeaders != null && HttpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") &&
                 int.TryParse(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), out int totalPages) &&
                 totalPages > 1)
             {
                 for (int page = 2; page <= totalPages; page++)
                 {
-                    comments.AddRange((await HttpHelper.GetRequestAsync<IEnumerable<Comment>>($"{_methodPath}?post={PostID}&per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList());
+                    comments?.AddRange((await HttpHelper.GetRequestAsync<IEnumerable<Comment>>($"{_methodPath}?post={PostID}&per_page=100&page={page}", embed, useAuth).ConfigureAwait(false))?.ToList());
                 }
             }
             return comments;

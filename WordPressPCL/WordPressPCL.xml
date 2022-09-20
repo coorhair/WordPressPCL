@@ -105,7 +105,7 @@
             <summary>
             Constructor
             </summary>
-            <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
         </member>
         <member name="M:WordPressPCL.Client.Comments.GetCommentsForPostAsync(System.Int32,System.Boolean,System.Boolean)">
             <summary>
@@ -174,11 +174,13 @@
             <param name="forceDeletion">is objects must be force deleted</param>
             <param name="ignoreDefaultPath">default path should be ignored when build endpoint</param>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.CreateAsync(`0)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.CreateAsync(`0,System.String,System.String)">
             <summary>
             Create Entity
             </summary>
             <param name="Entity">Entity object</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>Created object</returns>
         </member>
         <member name="M:WordPressPCL.Client.CRUDOperation`2.DeleteAsync(System.Int32)">
@@ -188,37 +190,45 @@
             <param name="Id">Entity Id</param>
             <returns>Result of operation</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.GetAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.GetAsync(System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get latest
             </summary>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>Entity by Id</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.GetAllAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.GetAllAsync(System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get All
             </summary>
             <param name="embed">Include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.GetByIDAsync(System.Object,System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get Entity by Id
             </summary>
             <param name="ID">ID</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>Entity by Id</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.QueryAsync(`1,System.Boolean)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.QueryAsync(`1,System.Boolean,System.String,System.String)">
             <summary>
             Create a parametrized query and get a result
             </summary>
             <param name="queryBuilder">Query builder with specific parameters</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>List of filtered result</returns>
         </member>
         <member name="M:WordPressPCL.Client.CRUDOperation`2.UpdateAsync(`0)">
@@ -228,12 +238,79 @@
             <param name="Entity">Entity object</param>
             <returns>Updated object</returns>
         </member>
-        <member name="M:WordPressPCL.Client.CRUDOperation`2.Update2Async(`0)">
+        <member name="M:WordPressPCL.Client.CRUDOperation`2.Update2Async(`0,System.String,System.String)">
             <summary>
             Update Entity using PUT method
             </summary>
             <param name="Entity">Entity object</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>Updated object</returns>
+        </member>
+        <member name="T:WordPressPCL.Client.Customers">
+            <summary>
+            Implement client to query WooCommerce customers
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Customers.#ctor(WordPressPCL.Utility.HttpHelper,System.String,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
+        </member>
+        <member name="M:WordPressPCL.Client.Customers.ListCustomersAsync(WordPressPCL.Utility.CustomersQueryBuilder,System.Boolean)">
+            <summary>
+            List customers by filter conditions
+            </summary>
+            <param name="filter">conditions to filter return customers</param>
+            <param name="useAuth">Send request with authentication header</param>
+            <returns>List of products</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Customers.CreateCustomerAsync(WordPressPCL.Models.Customer)">
+            <summary>
+            Create new customer
+            </summary>
+            <param name="entity">customer for creating</param>
+            <returns>customer detail</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Customers.GetCustomerAsync(System.Object,System.Boolean)">
+            <summary>
+            Get customer detail
+            </summary>
+            <param name="customerId">customer ID</param>
+            <param name="useAuth">send request with authentication header</param>
+            <returns>customer detail</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Customers.UpdateCustomerAsync(WordPressPCL.Models.Customer)">
+            <summary>
+            Update customer data
+            </summary>
+            <param name="entity">customer for updating</param>
+            <returns>customer detail</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Customers.DeleteCustomerAsync(System.Object,System.Boolean,System.Nullable{System.Int32})">
+            <summary>
+            Delete a customer
+            </summary>
+            <param name="customerId">customer for deleting</param>
+            <param name="force">Required to be true, as resource does not support trashing.</param>
+            <param name="reassign">User ID to reassign posts to.</param>
+            <returns>deleting failure or success</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Customers.GetCountAsync">
+            <summary>
+            Count total customers
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Customers.ListCustomerDownloadsAsync(System.Object)">
+            <summary>
+            Retrieve customer downloads permissions.
+            </summary>
+            <param name="customerId">customer for retreive all his downloads</param>
+            <returns></returns>
         </member>
         <member name="T:WordPressPCL.Client.CustomRequest">
             <summary>
@@ -319,37 +396,45 @@
             <param name="ID">Entity Id</param>
             <returns>Result of operation</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.GetAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Media.GetAsync(System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get latest
             </summary>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>Latest media items</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.GetAllAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Media.GetAllAsync(System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get All
             </summary>
             <param name="embed">Include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Media.GetByIDAsync(System.Object,System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get Entity by Id
             </summary>
             <param name="ID">ID</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>Entity by Id</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Media.QueryAsync(WordPressPCL.Utility.MediaQueryBuilder,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Media.QueryAsync(WordPressPCL.Utility.MediaQueryBuilder,System.Boolean,System.String,System.String)">
             <summary>
             Create a parametrized query and get a result
             </summary>
             <param name="queryBuilder">Query builder with specific parameters</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>List of filtered result</returns>
         </member>
         <member name="M:WordPressPCL.Client.Media.UpdateAsync(WordPressPCL.Models.MediaItem)">
@@ -415,29 +500,35 @@
             <param name="ID">Entity Id</param>
             <returns>Result of operation</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostRevisions.GetAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostRevisions.GetAsync(System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get latest
             </summary>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>Latest PostRevisions</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostRevisions.GetAllAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostRevisions.GetAllAsync(System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get All
             </summary>
             <param name="embed">Include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostRevisions.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostRevisions.GetByIDAsync(System.Object,System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get Entity by Id
             </summary>
             <param name="ID">ID</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>Entity by Id</returns>
         </member>
         <member name="T:WordPressPCL.Client.Posts">
@@ -527,29 +618,35 @@
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
         </member>
-        <member name="M:WordPressPCL.Client.PostStatuses.GetAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostStatuses.GetAsync(System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get latest Post Statuses
             </summary>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>Entity by Id</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostStatuses.GetAllAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostStatuses.GetAllAsync(System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get All
             </summary>
             <param name="embed">Include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostStatuses.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostStatuses.GetByIDAsync(System.Object,System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get Entity by Id
             </summary>
             <param name="ID">ID</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>Entity by Id</returns>
         </member>
         <member name="T:WordPressPCL.Client.PostTypes">
@@ -563,29 +660,35 @@
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
         </member>
-        <member name="M:WordPressPCL.Client.PostTypes.GetAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostTypes.GetAsync(System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get latest
             </summary>
             <param name="embed">Include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>List of latest PostTypes</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostTypes.GetAllAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostTypes.GetAllAsync(System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get All
             </summary>
             <param name="embed">Include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>List of all PostTypes</returns>
         </member>
-        <member name="M:WordPressPCL.Client.PostTypes.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.PostTypes.GetByIDAsync(System.Object,System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get Entity by Id
             </summary>
             <param name="ID">ID</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>Entity by Id</returns>
         </member>
         <member name="T:WordPressPCL.Client.ProductCategories">
@@ -744,37 +847,45 @@
             </summary>
             <param name="httpHelper">reference to HttpHelper class for interaction with HTTP</param>
         </member>
-        <member name="M:WordPressPCL.Client.Taxonomies.GetAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Taxonomies.GetAsync(System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get latest
             </summary>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>Get latest taxonomies</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Taxonomies.GetAllAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Taxonomies.GetAllAsync(System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get All
             </summary>
             <param name="embed">Include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Taxonomies.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Taxonomies.GetByIDAsync(System.Object,System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get Entity by Id
             </summary>
             <param name="ID">ID</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>Entity by Id</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Taxonomies.QueryAsync(WordPressPCL.Utility.TaxonomiesQueryBuilder,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Taxonomies.QueryAsync(WordPressPCL.Utility.TaxonomiesQueryBuilder,System.Boolean,System.String,System.String)">
             <summary>
             Create a parametrized query and get a result
             </summary>
             <param name="queryBuilder">Query builder with specific parameters</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>List of filtered result</returns>
         </member>
         <member name="T:WordPressPCL.Client.Users">
@@ -788,44 +899,54 @@
             </summary>
             <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
         </member>
-        <member name="M:WordPressPCL.Client.Users.CreateAsync(WordPressPCL.Models.User)">
+        <member name="M:WordPressPCL.Client.Users.CreateAsync(WordPressPCL.Models.User,System.String,System.String)">
             <summary>
             Create Entity
             </summary>
             <param name="Entity">Entity object</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>Created object</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.GetAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Users.GetAsync(System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get latest
             </summary>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>Get latest users</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.GetAllAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Users.GetAllAsync(System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get All
             </summary>
             <param name="embed">Include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>List of all result</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Users.GetByIDAsync(System.Object,System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get Entity by Id
             </summary>
             <param name="ID">ID</param>
             <param name="embed">include embed info</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>Entity by Id</returns>
         </member>
-        <member name="M:WordPressPCL.Client.Users.QueryAsync(WordPressPCL.Utility.UsersQueryBuilder,System.Boolean)">
+        <member name="M:WordPressPCL.Client.Users.QueryAsync(WordPressPCL.Utility.UsersQueryBuilder,System.Boolean,System.String,System.String)">
             <summary>
             Create a parametrized query and get a result
             </summary>
             <param name="queryBuilder">Query builder with specific parameters</param>
             <param name="useAuth">Send request with authentication header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>List of filtered result</returns>
         </member>
         <member name="M:WordPressPCL.Client.Users.UpdateAsync(WordPressPCL.Models.User)">
@@ -889,11 +1010,13 @@
             </summary>
             <typeparam name="TClass">return class type</typeparam>
         </member>
-        <member name="M:WordPressPCL.Interfaces.ICreateOperation`1.CreateAsync(`0)">
+        <member name="M:WordPressPCL.Interfaces.ICreateOperation`1.CreateAsync(`0,System.String,System.String)">
             <summary>
             Create object
             </summary>
             <param name="Entity">object to create</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>Created object</returns>
         </member>
         <member name="T:WordPressPCL.Interfaces.IDeleteOperation">
@@ -915,12 +1038,14 @@
             <typeparam name="TClass">return class type</typeparam>
             <typeparam name="TQueryClass">Query Builder class</typeparam>
         </member>
-        <member name="M:WordPressPCL.Interfaces.IQueryOperation`2.QueryAsync(`1,System.Boolean)">
+        <member name="M:WordPressPCL.Interfaces.IQueryOperation`2.QueryAsync(`1,System.Boolean,System.String,System.String)">
             <summary>
             Execute query
             </summary>
             <param name="queryBuilder">query builder with parameters for query</param>
             <param name="useAuth">Is use auth header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>list of filtered objects</returns>
         </member>
         <member name="T:WordPressPCL.Interfaces.IReadOperation`1">
@@ -929,29 +1054,35 @@
             </summary>
             <typeparam name="TClass">return class type</typeparam>
         </member>
-        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetAsync(System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get latest
             </summary>
             <param name="embed">Is use embed info</param>
             <param name="useAuth">Is use auth header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>requested object</returns>
         </member>
-        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetByIDAsync(System.Object,System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetByIDAsync(System.Object,System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get object by Id
             </summary>
             <param name="ID">Object Id</param>
             <param name="embed">Is use embed info</param>
             <param name="useAuth">Is use auth header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>requested object</returns>
         </member>
-        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetAllAsync(System.Boolean,System.Boolean)">
+        <member name="M:WordPressPCL.Interfaces.IReadOperation`1.GetAllAsync(System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Get all objects
             </summary>
             <param name="embed">Is use embed info</param>
             <param name="useAuth">Is use auth header</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
             <returns>List of objects</returns>
         </member>
         <member name="T:WordPressPCL.Interfaces.IUpdateOperation`1">
@@ -1459,6 +1590,11 @@
             Meta data.
             </summary>
         </member>
+        <member name="M:WordPressPCL.Models.Coupon.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.Customer">
             <summary>
             WooCommerce Customer
@@ -1537,6 +1673,94 @@
         <member name="P:WordPressPCL.Models.Customer.Metadata">
             <summary>
             Meta data
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Models.Customer.#ctor">
+            <summary>
+            Constructor parameterless
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Models.Customer.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Constructor with required parameters
+            </summary>
+            <param name="userName">customer's name</param>
+            <param name="email">customer's email address</param>
+            <param name="password">customer's password</param>
+        </member>
+        <member name="T:WordPressPCL.Models.CustomerDownload">
+            <summary>
+            WooCommerce Customer Download
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.CustomerDownload.DownloadId">
+            <summary>
+            Download ID (MD5).
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.CustomerDownload.DownloadUrl">
+            <summary>
+            Download file URL.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.CustomerDownload.ProductId">
+            <summary>
+            Downloadable product ID.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.CustomerDownload.ProductName">
+            <summary>
+            Product name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.CustomerDownload.DownloadName">
+            <summary>
+            Downloadable file name.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.CustomerDownload.OrderId">
+            <summary>
+            Order ID.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.CustomerDownload.OrderKey">
+            <summary>
+            Order key.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.CustomerDownload.DownloadsRemaining">
+            <summary>
+            Number of downloads remaining.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.CustomerDownload.AccessExpires">
+            <summary>
+            The date when download access expires, in the site's timezone.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.CustomerDownload.AccessExpiresGMT">
+            <summary>
+            The date when download access expires, as GMT.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.CustomerDownload.File">
+            <summary>
+            File details
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.CustomerDownloadFileProperty">
+            <summary>
+            Customer Download File detail (WooCommerce)
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.CustomerDownloadFileProperty.Name">
+            <summary>
+            File name
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Models.CustomerDownloadFileProperty.Url">
+            <summary>
+            File URL
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.DefaultAttribute">
@@ -2203,6 +2427,51 @@
         <member name="F:WordPressPCL.Models.StockStatus.OnBackOrder">
             <summary>
             On Back Order
+            </summary>
+        </member>
+        <member name="T:WordPressPCL.Models.CustomerRole">
+            <summary>
+            Filter customer by role (WooCommerce)
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.CustomerRole.All">
+            <summary>
+            All
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.CustomerRole.Administrator">
+            <summary>
+            Administrator
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.CustomerRole.Editor">
+            <summary>
+            Editor
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.CustomerRole.Author">
+            <summary>
+            Author
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.CustomerRole.Contributor">
+            <summary>
+            Contributor
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.CustomerRole.Subscriber">
+            <summary>
+            Subscriber
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.CustomerRole.Customer">
+            <summary>
+            Customer
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Models.CustomerRole.ShopManager">
+            <summary>
+            Shop manager
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.Exceptions.WPException">
@@ -3532,6 +3801,11 @@
             List of grouped products ID.
             </summary>
         </member>
+        <member name="M:WordPressPCL.Models.Product.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.ProductAttribute">
             <summary>
             WooCommerce Product Attribute
@@ -3827,6 +4101,11 @@
             Meta data
             </summary>
         </member>
+        <member name="M:WordPressPCL.Models.ProductVariation.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Models.Review">
             <summary>
             WooCommerce Product Review
@@ -3875,6 +4154,11 @@
         <member name="P:WordPressPCL.Models.Review.Verified">
             <summary>
             Shows if the reviewer bought the product or not.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Models.Review.#ctor">
+            <summary>
+            Constructor
             </summary>
         </member>
         <member name="T:WordPressPCL.Models.Settings">
@@ -4747,6 +5031,60 @@
         <member name="M:WordPressPCL.Utility.CustomCapabilitiesJsonConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Boolean,Newtonsoft.Json.JsonSerializer)">
             <inheritdoc />
         </member>
+        <member name="T:WordPressPCL.Utility.CustomersQueryBuilder">
+            <summary>
+            Query customers by filters (WooCommerce)
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CustomersQueryBuilder.Page">
+            <summary>
+            Current page of the collection. 
+            </summary>
+            <remarks>Default is 1</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.CustomersQueryBuilder.PerPage">
+            <summary>
+            Maximum number of items to be returned in result set. 
+            </summary>
+            <remarks>Default is 10</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.CustomersQueryBuilder.Search">
+            <summary>
+            Limit results to those matching a string.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CustomersQueryBuilder.Exclude">
+            <summary>
+            Ensure result set excludes specific ids.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CustomersQueryBuilder.Include">
+            <summary>
+            Ensure result set excludes specific ids.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CustomersQueryBuilder.Offset">
+            <summary>
+            Offset the result set by a specific number of items.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CustomersQueryBuilder.OrderBy">
+            <summary>
+            Sort collection by object attribute. Options: id, include, name and registered_date. 
+            </summary>
+            <remarks>Default is name.</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.CustomersQueryBuilder.Email">
+            <summary>
+            Limit result set to resources with a specific email.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.CustomersQueryBuilder.Role">
+            <summary>
+            Limit result set to resources with a specific role. Options: all, administrator, editor, author, contributor, subscriber, customer and shop_manager. 
+            </summary>
+            <remarks>Default is customer.</remarks>
+        </member>
         <member name="T:WordPressPCL.Utility.ExcludeQueryTextAttribute">
             <summary>
             Attribute to exclude query text in querybuilder
@@ -4820,6 +5158,13 @@
             </summary>
             <param name="httpClient">Http client which would be used for sending requests to the WordPress API endpoint.</param>
             <param name="defaultPath">Relative path to standard API endpoints, defaults to "wp/v2/"</param>
+        </member>
+        <member name="M:WordPressPCL.Utility.HttpHelper.GetBaseAddress(System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="ignoreDefaultPath"></param>
+            <returns></returns>
         </member>
         <member name="T:WordPressPCL.Utility.MediaQueryBuilder">
             <summary>
@@ -4932,6 +5277,65 @@
             Get MIME type of file from extension
             </summary>
             <param name="extension"></param>
+            <returns></returns>
+        </member>
+        <member name="T:WordPressPCL.Utility.OAuth1Authenticator">
+            <summary>
+            Class support OAuth1 authentication
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.Utility.OAuth1Authenticator.UriRfc3986CharsToEscape">
+            <summary>
+            The set of characters that are unreserved in RFC 2396 but are NOT unreserved in RFC 3986.
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Utility.OAuth1Authenticator.EscapeUriDataStringRfc3986(System.String)">
+            <summary>
+            Escapes a string according to the URI data string rules given in RFC 3986.
+            </summary>
+            <param name="value">The value to escape.</param>
+            <returns>The escaped value.</returns>
+            <remarks>
+            The <see cref="M:System.Uri.EscapeDataString(System.String)"/> method is <i>supposed</i> to take on
+            RFC 3986 behavior if certain elements are present in a .config file.  Even if this
+            actually worked (which in my experiments it <i>doesn't</i>), we can't rely on every
+            host actually having this configuration element present.
+            </remarks>
+        </member>
+        <member name="M:WordPressPCL.Utility.OAuth1Authenticator.Build(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Build OAuth 1.0 signature and more
+            </summary>
+            <param name="url">endpoint</param>
+            <param name="httpMethod">http method like GET/POST/PUT</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
+            <param name="tokenSecret"></param>
+            <param name="tokenValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WordPressPCL.Utility.OAuth1Authenticator.BuildRoute(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Build Oauth 1.0 route
+            </summary>
+            <param name="url"></param>
+            <param name="httpMethod"></param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
+            <param name="tokenSecret"></param>
+            <param name="tokenValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WordPressPCL.Utility.OAuth1Authenticator.GenQueryParams(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Build OAuth 1.0 ready for query
+            </summary>
+            <param name="url">endpoint</param>
+            <param name="httpMethod">http method like GET/POST/PUT</param>
+            <param name="consumerKey"></param>
+            <param name="consumerSecret"></param>
+            <param name="tokenSecret"></param>
+            <param name="tokenValue"></param>
             <returns></returns>
         </member>
         <member name="T:WordPressPCL.Utility.PagesQueryBuilder">
@@ -5645,6 +6049,11 @@
         <member name="P:WordPressPCL.WordPressClient.ProductCategories">
             <summary>
             WooCommerce Product's Category interaction object
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.WordPressClient.Customers">
+            <summary>
+            WooCommerce Customer interaction object
             </summary>
         </member>
         <member name="M:WordPressPCL.WordPressClient.#ctor(System.Uri,System.String)">

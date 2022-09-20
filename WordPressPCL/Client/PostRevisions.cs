@@ -40,8 +40,10 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="consumerKey"></param>
+        /// <param name="consumerSecret"></param>
         /// <returns>Latest PostRevisions</returns>
-        public Task<IEnumerable<PostRevision>> GetAsync(bool embed = false, bool useAuth = true)
+        public Task<IEnumerable<PostRevision>> GetAsync(bool embed = false, bool useAuth = true, string? consumerKey = null, string? consumerSecret = null)
         {
             return _httpHelper.GetRequestAsync<IEnumerable<PostRevision>>($"posts/{_postId}/{_methodPath}", embed, useAuth);
         }
@@ -51,8 +53,10 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="embed">Include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="consumerKey"></param>
+        /// <param name="consumerSecret"></param>
         /// <returns>List of all result</returns>
-        public Task<IEnumerable<PostRevision>> GetAllAsync(bool embed = false, bool useAuth = true)
+        public Task<IEnumerable<PostRevision>> GetAllAsync(bool embed = false, bool useAuth = true, string? consumerKey = null, string? consumerSecret = null)
         {
             return _httpHelper.GetRequestAsync<IEnumerable<PostRevision>>($"posts/{_postId}/{_methodPath}", embed, useAuth);
         }
@@ -63,8 +67,10 @@ namespace WordPressPCL.Client
         /// <param name="ID">ID</param>
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="consumerKey"></param>
+        /// <param name="consumerSecret"></param>
         /// <returns>Entity by Id</returns>
-        public Task<PostRevision> GetByIDAsync(object ID, bool embed = false, bool useAuth = true)
+        public Task<PostRevision> GetByIDAsync(object ID, bool embed = false, bool useAuth = true, string? consumerKey = null, string? consumerSecret = null)
         {
             return _httpHelper.GetRequestAsync<PostRevision>($"posts/{_postId}/{_methodPath}/{ID}", embed, useAuth);
         }

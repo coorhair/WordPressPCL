@@ -28,8 +28,10 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="embed">Include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="consumerKey"></param>
+        /// <param name="consumerSecret"></param>
         /// <returns>List of latest PostTypes</returns>
-        public async Task<IEnumerable<PostType>> GetAsync(bool embed = false, bool useAuth = false)
+        public async Task<IEnumerable<PostType>> GetAsync(bool embed = false, bool useAuth = false, string? consumerKey = null, string? consumerSecret = null)
         {
             List<PostType> entities = new();
             Dictionary<string, PostType> entities_page = (await _httpHelper.GetRequestAsync<Dictionary<string, PostType>>($"{_methodPath}", embed, useAuth).ConfigureAwait(false));
@@ -45,8 +47,10 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="embed">Include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="consumerKey"></param>
+        /// <param name="consumerSecret"></param>
         /// <returns>List of all PostTypes</returns>
-        public async Task<IEnumerable<PostType>> GetAllAsync(bool embed = false, bool useAuth = false)
+        public async Task<IEnumerable<PostType>> GetAllAsync(bool embed = false, bool useAuth = false, string? consumerKey = null, string? consumerSecret = null)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
             List<PostType> entities = new();
@@ -64,8 +68,10 @@ namespace WordPressPCL.Client
         /// <param name="ID">ID</param>
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="consumerKey"></param>
+        /// <param name="consumerSecret"></param>
         /// <returns>Entity by Id</returns>
-        public Task<PostType> GetByIDAsync(object ID, bool embed = false, bool useAuth = false)
+        public Task<PostType> GetByIDAsync(object ID, bool embed = false, bool useAuth = false, string? consumerKey = null, string? consumerSecret = null)
         {
             return _httpHelper.GetRequestAsync<PostType>($"{_methodPath}/{ID}", embed, useAuth);
         }

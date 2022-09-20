@@ -167,7 +167,7 @@ namespace WordPressPCL.Client {
         /// Gets the JWToken from the client
         /// </summary>
         /// <returns></returns>
-        public string GetToken() {
+        public string? GetToken() {
             return _httpHelper.JWToken;
         }
 

@@ -14,17 +14,17 @@ namespace WordPressPCL.Models
         /// Product name.
         /// </summary>
         [JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         /// <summary>
         /// Product slug.
         /// </summary>
         [JsonProperty("slug", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Slug { get; set; }
+        public string? Slug { get; set; }
         /// <summary>
         /// Product type. Options: simple, grouped, external and variable. Default is simple.
         /// </summary>
         [JsonProperty("type", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Type { get; set; }
+        public string? Type { get; set; }
         /// <summary>
         /// Featured product. Default is false.
         /// </summary>
@@ -34,17 +34,17 @@ namespace WordPressPCL.Models
         /// Catalog visibility. Options: visible, catalog, search and hidden. Default is visible.
         /// </summary>
         [JsonProperty("catalog_visibility", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string CatalogVisibility { get; set; }
+        public string? CatalogVisibility { get; set; }
         /// <summary>
         /// Product short description.
         /// </summary>
         [JsonProperty("short_description", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string ShortDescription { get; set; }
+        public string? ShortDescription { get; set; }
         /// <summary>
         /// Price formatted in HTML.
         /// </summary>
         [JsonProperty("price_html", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string PriceHtml { get; set; }
+        public string? PriceHtml { get; set; }
         /// <summary>
         /// Amount of sales
         /// </summary>
@@ -54,12 +54,12 @@ namespace WordPressPCL.Models
         /// Product external URL. Only for external products.
         /// </summary>
         [JsonProperty("external_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string ExternalUrl { get; set; }
+        public string? ExternalUrl { get; set; }
         /// <summary>
         /// Product external button text. Only for external products.
         /// </summary>
         [JsonProperty("button_text", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string ButtonText { get; set; }
+        public string? ButtonText { get; set; }
         /// <summary>
         /// Allow one item to be bought in a single order. Default is false.
         /// </summary>
@@ -84,7 +84,7 @@ namespace WordPressPCL.Models
         /// Reviews average rating
         /// </summary>
         [JsonProperty("average_rating", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string AverageRating { get; set; }
+        public string? AverageRating { get; set; }
         /// <summary>
         /// Amount of reviews that the product have.
         /// </summary>
@@ -94,17 +94,17 @@ namespace WordPressPCL.Models
         /// List of related products IDs.
         /// </summary>
         [JsonProperty("related_ids", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<int> RelatedIds { get; set; }
+        public List<int>? RelatedIds { get; set; }
         /// <summary>
         /// List of up-sell products IDs.
         /// </summary>
         [JsonProperty("upsell_ids", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<int> UpSellIds { get; set; }
+        public List<int>? UpSellIds { get; set; }
         /// <summary>
         /// List of cross-sell products IDs.
         /// </summary>
         [JsonProperty("cross_sell_ids", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<int> CrossSellIds { get; set; }
+        public List<int>? CrossSellIds { get; set; }
         /// <summary>
         /// Product parent ID.
         /// </summary>
@@ -114,22 +114,22 @@ namespace WordPressPCL.Models
         /// Optional note to send the customer after purchase.
         /// </summary>
         [JsonProperty("purchase_note", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string PurchaseNote { get; set; }
+        public string? PurchaseNote { get; set; }
         /// <summary>
         /// List of categories. 
         /// </summary>
         [JsonProperty("categories", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<Category> Categories { get; set; }
+        public List<Category>? Categories { get; set; }
         /// <summary>
         /// List of tags. 
         /// </summary>
         [JsonProperty("tags", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<ProductTag> Tags { get; set; }
+        public List<ProductTag>? Tags { get; set; }
         /// <summary>
         /// List of images. 
         /// </summary>
         [JsonProperty("images", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<Image> Images { get; set; }
+        public List<Image>? Images { get; set; }
         
         /** hide this field from super class */
         [JsonProperty("image", DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -139,18 +139,20 @@ namespace WordPressPCL.Models
         /// Defaults variation attributes 
         /// </summary>
         [JsonProperty("default_attributes", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<DefaultAttribute> DefaultAttributes { get; set; }
+        public List<DefaultAttribute>? DefaultAttributes { get; set; }
         /// <summary>
         /// List of variations IDs.
         /// </summary>
         [JsonProperty("variations", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<int> Variations { get; set; }
+        public List<int>? Variations { get; set; }
         /// <summary>
         /// List of grouped products ID.
         /// </summary>
         [JsonProperty("grouped_products", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<int> GroupedProducts { get; set; }
-        
+        public List<int>? GroupedProducts { get; set; }
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public Product() : base() { }
     }
 }

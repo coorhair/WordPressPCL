@@ -67,12 +67,20 @@ namespace WordPressPCL.Client
         /// Create Entity
         /// </summary>
         /// <param name="Entity">Entity object</param>
+        /// <param name="consumerKey"></param>
+        /// <param name="consumerSecret"></param>
         /// <returns>Created object</returns>
-        public async Task<TClass> CreateAsync(TClass Entity)
+        public async Task<TClass?> CreateAsync(TClass Entity, string? consumerKey = null, string? consumerSecret = null)
         {
             var entity = HttpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, HttpHelper.JsonSerializerSettings);
             using var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
-            return (await HttpHelper.PostRequestAsync<TClass>(MethodPath, postBody, ignoreDefaultPath: IgnoreDefaultPath).ConfigureAwait(false)).Item1;
+            var route = MethodPath;
+            if (!string.IsNullOrEmpty(consumerKey) && !string.IsNullOrEmpty(consumerSecret))
+            {
+                //route = $"{route}?{OAuth1Authenticator.GenQueryParams(MethodPath, "POST", consumerKey, consumerSecret)}";
+                route = OAuth1Authenticator.BuildRoute($"{HttpHelper.GetBaseAddress(IgnoreDefaultPath)}{route}", "POST", consumerKey, consumerSecret);
+            }
+            return (await HttpHelper.PostRequestAsync<TClass>(route, postBody, ignoreDefaultPath: IgnoreDefaultPath).ConfigureAwait(false)).Item1;
         }
 
         /// <summary>
@@ -91,8 +99,10 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="consumerKey"></param>
+        /// <param name="consumerSecret"></param>
         /// <returns>Entity by Id</returns>
-            public Task<IEnumerable<TClass>> GetAsync(bool embed = false, bool useAuth = false)
+        public Task<IEnumerable<TClass>?> GetAsync(bool embed = false, bool useAuth = false, string? consumerKey = null, string? consumerSecret = null)
         {
             return HttpHelper.GetRequestAsync<IEnumerable<TClass>>(MethodPath, embed, useAuth, IgnoreDefaultPath);
         }
@@ -102,19 +112,22 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="embed">Include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="consumerKey"></param>
+        /// <param name="consumerSecret"></param>
         /// <returns>List of all result</returns>
-        public async Task<IEnumerable<TClass>> GetAllAsync(bool embed = false, bool useAuth = false)
+        public async Task<IEnumerable<TClass>?> GetAllAsync(bool embed = false, bool useAuth = false, string? consumerKey = null, string? consumerSecret = null)
         {
             //100 - Max posts per page in WordPress REST API, so this is hack with multiple requests
             var url = MethodPath.SetQueryParam("per_page", "100").SetQueryParam("page", "1");
             var entities = (await HttpHelper.GetRequestAsync<IEnumerable<TClass>>(url, embed, useAuth, IgnoreDefaultPath).ConfigureAwait(false))?.ToList();
-            if (HttpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") && Convert.ToInt32(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture) > 1)
+            if (HttpHelper.LastResponseHeaders != null && HttpHelper.LastResponseHeaders.Contains("X-WP-TotalPages") 
+                && Convert.ToInt32(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture) > 1)
             {
                 int totalpages = Convert.ToInt32(HttpHelper.LastResponseHeaders.GetValues("X-WP-TotalPages").FirstOrDefault(), CultureInfo.InvariantCulture);
                 for (int page = 2; page <= totalpages; page++)
                 {
                     url = MethodPath.SetQueryParam("per_page","100").SetQueryParam("page", page.ToString());
-                    entities.AddRange((await HttpHelper.GetRequestAsync<IEnumerable<TClass>>(url, embed, useAuth, IgnoreDefaultPath).ConfigureAwait(false))?.ToList());
+                    entities?.AddRange((await HttpHelper.GetRequestAsync<IEnumerable<TClass>>(url, embed, useAuth, IgnoreDefaultPath).ConfigureAwait(false))?.ToList());
                 }
             }
             return entities;
@@ -126,10 +139,18 @@ namespace WordPressPCL.Client
         /// <param name="ID">ID</param>
         /// <param name="embed">include embed info</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="consumerKey"></param>
+        /// <param name="consumerSecret"></param>
         /// <returns>Entity by Id</returns>
-        public Task<TClass> GetByIDAsync(object ID, bool embed = false, bool useAuth = false)
+        public Task<TClass?> GetByIDAsync(object ID, bool embed = false, bool useAuth = false, string? consumerKey = null, string? consumerSecret = null)
         {
-            return HttpHelper.GetRequestAsync<TClass>($"{MethodPath}/{ID}", embed, useAuth, IgnoreDefaultPath);
+            var route = $"{MethodPath}/{ID}";
+            if (!string.IsNullOrEmpty(consumerKey) && !string.IsNullOrEmpty(consumerSecret))
+            {
+                //route = $"{route}?{OAuth1Authenticator.GenQueryParams(route, "GET", consumerKey, consumerSecret)}";
+                route = OAuth1Authenticator.BuildRoute($"{HttpHelper.GetBaseAddress(IgnoreDefaultPath)}{route}", "GET", consumerKey, consumerSecret);
+            }
+            return HttpHelper.GetRequestAsync<TClass>(route, embed, useAuth, IgnoreDefaultPath);
         }
 
         /// <summary>
@@ -137,10 +158,18 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="queryBuilder">Query builder with specific parameters</param>
         /// <param name="useAuth">Send request with authentication header</param>
+        /// <param name="consumerKey"></param>
+        /// <param name="consumerSecret"></param>
         /// <returns>List of filtered result</returns>
-        public Task<IEnumerable<TClass>> QueryAsync(QClass queryBuilder, bool useAuth = false)
+        public Task<IEnumerable<TClass>?> QueryAsync(QClass queryBuilder, bool useAuth = false, string? consumerKey = null, string? consumerSecret = null)
         {
-            return HttpHelper.GetRequestAsync<IEnumerable<TClass>>($"{MethodPath}{queryBuilder.BuildQuery()}", false, useAuth, IgnoreDefaultPath);
+            var route = $"{MethodPath}{queryBuilder.BuildQuery()}";
+            if (!string.IsNullOrEmpty(consumerKey) && !string.IsNullOrEmpty(consumerSecret))
+            {
+                //route = $"{route}&{OAuth1Authenticator.GenQueryParams(MethodPath, "GET", consumerKey, consumerSecret)}";
+                route = OAuth1Authenticator.BuildRoute($"{HttpHelper.GetBaseAddress(IgnoreDefaultPath)}{route}", "GET", consumerKey, consumerSecret);
+            }
+            return HttpHelper.GetRequestAsync<IEnumerable<TClass>>(route, false, useAuth, IgnoreDefaultPath);
         }
 
         /// <summary>
@@ -148,7 +177,7 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="Entity">Entity object</param>
         /// <returns>Updated object</returns>
-        public async Task<TClass> UpdateAsync(TClass Entity)
+        public async Task<TClass?> UpdateAsync(TClass Entity)
         {
             var entity = HttpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, HttpHelper.JsonSerializerSettings);
             using var postBody = new StringContent(entity, Encoding.UTF8, "application/json");
@@ -159,12 +188,20 @@ namespace WordPressPCL.Client
         /// Update Entity using PUT method
         /// </summary>
         /// <param name="Entity">Entity object</param>
+        /// <param name="consumerKey"></param>
+        /// <param name="consumerSecret"></param>
         /// <returns>Updated object</returns>
-        public async Task<TClass> Update2Async(TClass Entity)
+        public async Task<TClass?> Update2Async(TClass Entity, string? consumerKey = null, string? consumerSecret = null)
         {
             var entity = HttpHelper.JsonSerializerSettings == null ? JsonConvert.SerializeObject(Entity) : JsonConvert.SerializeObject(Entity, HttpHelper.JsonSerializerSettings);
             using var putBody = new StringContent(entity, Encoding.UTF8, "application/json");
-            return (await HttpHelper.PutRequestAsync<TClass>($"{MethodPath}/{(Entity as Base)?.Id}", putBody, ignoreDefaultPath: IgnoreDefaultPath).ConfigureAwait(false)).Item1;
+            var route = $"{MethodPath}/{(Entity as Base)?.Id}";
+            if (!string.IsNullOrEmpty(consumerKey) && !string.IsNullOrEmpty(consumerSecret))
+            {
+                //route = $"{route}?{OAuth1Authenticator.GenQueryParams(route, "PUT", consumerKey, consumerSecret)}";
+                route = OAuth1Authenticator.BuildRoute($"{HttpHelper.GetBaseAddress(IgnoreDefaultPath)}{route}", "POST", consumerKey, consumerSecret);
+            }
+            return (await HttpHelper.PutRequestAsync<TClass>(route, putBody, ignoreDefaultPath: IgnoreDefaultPath).ConfigureAwait(false)).Item1;
         }
     }
 }

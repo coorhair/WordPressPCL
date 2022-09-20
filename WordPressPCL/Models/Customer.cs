@@ -34,32 +34,32 @@ namespace WordPressPCL.Models
         /// The email address for the customer.
         /// </summary>
         [JsonProperty("email", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         /// <summary>
         /// Customer first name.
         /// </summary>
         [JsonProperty("first_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
         /// <summary>
         /// Customer last name.
         /// </summary>
         [JsonProperty("last_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
         /// <summary>
         /// Customer role.
         /// </summary>
         [JsonProperty("role", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Role { get; set; }
+        public string? Role { get; set; }
         /// <summary>
         /// Customer login name.
         /// </summary>
         [JsonProperty("username", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
         /// <summary>
         /// Customer password.
         /// </summary>
         [JsonProperty("password", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Password { get; set; }
+        public string? Password { get; set; }
         /// <summary>
         /// List of billing address data
         /// </summary>
@@ -79,13 +79,28 @@ namespace WordPressPCL.Models
         /// Avatar URL.
         /// </summary>
         [JsonProperty("avatar_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string AvatarUrl { get; set; }
+        public string? AvatarUrl { get; set; }
         /// <summary>
         /// Meta data
         /// </summary>
         [JsonProperty("meta_data", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<MetaData> Metadata { get; set; }
-
+        public List<MetaData>? Metadata { get; set; }
+        /// <summary>
+        /// Constructor parameterless
+        /// </summary>
         public Customer() { }
+
+        /// <summary>
+        /// Constructor with required parameters
+        /// </summary>
+        /// <param name="userName">customer's name</param>
+        /// <param name="email">customer's email address</param>
+        /// <param name="password">customer's password</param>
+        public Customer(string userName, string email, string password)
+        {
+            UserName = userName;
+            Email = email;
+            Password = password;
+        }
     }
 }

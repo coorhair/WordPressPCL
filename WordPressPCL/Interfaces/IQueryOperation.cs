@@ -16,7 +16,9 @@ namespace WordPressPCL.Interfaces
         /// </summary>
         /// <param name="queryBuilder">query builder with parameters for query</param>
         /// <param name="useAuth">Is use auth header</param>
+        /// <param name="consumerKey"></param>
+        /// <param name="consumerSecret"></param>
         /// <returns>list of filtered objects</returns>
-        Task<IEnumerable<TClass>> QueryAsync(TQueryClass queryBuilder, bool useAuth = false);
+        Task<IEnumerable<TClass>?> QueryAsync(TQueryClass queryBuilder, bool useAuth = false, string? consumerKey = null, string? consumerSecret = null);
     }
 }

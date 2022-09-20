@@ -13,6 +13,8 @@ namespace WordPressPCL
     {
         private readonly HttpHelper _httpHelper;
         private const string DEFAULT_PATH = "wp/v2/";
+        private const string CONSUMER_KEY = "ck_b6dd5b278443857d4f2e64ad113979a18a904e12";
+        private const string CONSUMER_SECRET = "cs_f79abfb9cb462553e2de6a2b19f69572056826ce";
 
         /// <summary>
         /// WordPressUri holds the WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/wp/v2/"
@@ -116,6 +118,11 @@ namespace WordPressPCL
         public ProductCategories ProductCategories { get; private set; }
 
         /// <summary>
+        /// WooCommerce Customer interaction object
+        /// </summary>
+        public Customers Customers { get; private set; }
+
+        /// <summary>
         /// The WordPressClient holds all connection infos and provides methods to call WordPress APIs.
         /// </summary>
         /// <param name="uri">URI for WordPress API endpoint, e.g. "http://demo.wp-api.org/wp-json/"</param>
@@ -171,6 +178,7 @@ namespace WordPressPCL
             Settings = new Settings(httpHelper);
             Products = new Products(httpHelper);
             ProductCategories = new ProductCategories(httpHelper);
+            Customers = new Customers(httpHelper, CONSUMER_KEY, CONSUMER_SECRET);
         }
 
     }

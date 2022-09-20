@@ -14,12 +14,12 @@ namespace WordPressPCL.Models
         /// Coupon code.
         /// </summary>
         [JsonProperty("code", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Code { get; set; }
+        public string? Code { get; set; }
         /// <summary>
         /// The amount of discount. Should always be numeric, even if setting a percentage.
         /// </summary>
         [JsonProperty("amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Amount { get; set; }
+        public string? Amount { get; set; }
         /// <summary>
         /// The date the coupon was created, in the site's timezone.
         /// </summary>
@@ -44,22 +44,22 @@ namespace WordPressPCL.Models
         /// Determines the type of discount that will be applied. Options: percent, fixed_cart and fixed_product. Default is fixed_cart.
         /// </summary>
         [JsonProperty("discount_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string DiscountType { get; set; }
+        public string? DiscountType { get; set; }
         /// <summary>
         /// Coupon description
         /// </summary>
         [JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
         /// <summary>
         /// The date the coupon expires, in the site's timezone.
         /// </summary>
         [JsonProperty("date_expires", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string DateExpires { get; set; }
+        public string? DateExpires { get; set; }
         /// <summary>
         /// The date the coupon expires, as GMT.
         /// </summary>
         [JsonProperty("date_expires_gmt", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string DateExpiresGMT { get; set; }
+        public string? DateExpiresGMT { get; set; }
         /// <summary>
         /// Number of times the coupon has been used already.
         /// </summary>
@@ -74,12 +74,12 @@ namespace WordPressPCL.Models
         /// List of product IDs the coupon can be used on.
         /// </summary>
         [JsonProperty("product_ids", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<int> ProductIds { get; set; }
+        public List<int>? ProductIds { get; set; }
         /// <summary>
         /// List of product IDs the coupon cannot be used on.
         /// </summary>
         [JsonProperty("excluded_product_ids", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<int> ExcludedProductIds { get; set; }
+        public List<int>? ExcludedProductIds { get; set; }
         /// <summary>
         /// How many times the coupon can be used in total.
         /// </summary>
@@ -104,12 +104,12 @@ namespace WordPressPCL.Models
         /// List of category IDs the coupon applies to.
         /// </summary>
         [JsonProperty("product_categories", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<int> ProductCategories { get; set; }
+        public List<int>? ProductCategories { get; set; }
         /// <summary>
         /// List of category IDs the coupon does not apply to.
         /// </summary>
         [JsonProperty("excluded_product_categories", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<int> ExcludedProductCategories { get; set; }
+        public List<int>? ExcludedProductCategories { get; set; }
         /// <summary>
         /// If true, this coupon will not be applied to items that have sale prices. Default is false.
         /// </summary>
@@ -119,28 +119,30 @@ namespace WordPressPCL.Models
         /// Minimum order amount that needs to be in the cart before coupon applies.
         /// </summary>
         [JsonProperty("minimum_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string MinimumAmount { get; set; }
+        public string? MinimumAmount { get; set; }
         /// <summary>
         /// Maximum order amount allowed when using the coupon.
         /// </summary>
         [JsonProperty("maximum_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string MaximumAmount { get; set; }
+        public string? MaximumAmount { get; set; }
         /// <summary>
         /// List of email addresses that can use this coupon.
         /// </summary>
         [JsonProperty("email_restrictions", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<string> EmailRestrictions { get; set; }
+        public List<string>? EmailRestrictions { get; set; }
         /// <summary>
         /// List of user IDs (or guest email addresses) that have used the coupon.
         /// </summary>
         [JsonProperty("used_by", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<string> UsedBy { get; set; }
+        public List<string>? UsedBy { get; set; }
         /// <summary>
         /// Meta data.
         /// </summary>
         [JsonProperty("meta_data", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<MetaData> Metadata { get; set; }
-
+        public List<MetaData>? Metadata { get; set; }
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public Coupon() { }
     }
 }

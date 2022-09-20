@@ -15,7 +15,7 @@ namespace WordPressPCL.Models
         /// Variation URL
         /// </summary>
         [JsonProperty("permalink", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string PermanentLink { get; set; }
+        public string? PermanentLink { get; set; }
         /// <summary>
         /// The date the product was created, in the site's timezone
         /// </summary>
@@ -40,32 +40,32 @@ namespace WordPressPCL.Models
         /// Product status (post status). Options: draft, pending, private and publish. Default is publish
         /// </summary>
         [JsonProperty("status", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Status { get; set; }
+        public string? Status { get; set; }
         /// <summary>
         /// Product description.
         /// </summary>
         [JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
         /// <summary>
         /// Unique identifier
         /// </summary>
         [JsonProperty("sku", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string SKU { get; set; }
+        public string? SKU { get; set; }
         /// <summary>
         /// Current product price.
         /// </summary>
         [JsonProperty("price", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Price { get; set; }
+        public string? Price { get; set; }
         /// <summary>
         /// Product regular price.
         /// </summary>
         [JsonProperty("regular_price", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string RegularPrice { get; set; }
+        public string? RegularPrice { get; set; }
         /// <summary>
         /// Product sale price.
         /// </summary>
         [JsonProperty("sale_price", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string SalePrice { get; set; }
+        public string? SalePrice { get; set; }
         /// <summary>
         /// Start date of sale price, in the site's timezone.
         /// </summary>
@@ -110,7 +110,7 @@ namespace WordPressPCL.Models
         /// List of downloadable files.
         /// </summary>
         [JsonProperty("downloads", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<Download> Downloads { get; set; }
+        public List<Download>? Downloads { get; set; }
         /// <summary>
         /// Number of times downloadable files can be downloaded after purchase. Default is -1
         /// </summary>
@@ -125,12 +125,12 @@ namespace WordPressPCL.Models
         /// Tax status. Options: taxable, shipping and none. Default is taxable.
         /// </summary>
         [JsonProperty("tax_status", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string TaxStatus { get; set; }
+        public string? TaxStatus { get; set; }
         /// <summary>
         /// Tax class.
         /// </summary>
         [JsonProperty("tax_class", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string TaxClass { get; set; }
+        public string? TaxClass { get; set; }
         /// <summary>
         /// Stock management at product level. Default is false.
         /// </summary>
@@ -145,12 +145,12 @@ namespace WordPressPCL.Models
         /// Controls the stock status of the product. Options: instock, outofstock, onbackorder. Default is instock.
         /// </summary>
         [JsonProperty("stock_status", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string StockStatus { get; set; }
+        public string? StockStatus { get; set; }
         /// <summary>
         /// If managing stock, this controls if backorders are allowed. Options: no, notify and yes. Default is no.
         /// </summary>
         [JsonProperty("backorders", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string BackOrders { get; set; }
+        public string? BackOrders { get; set; }
         /// <summary>
         /// Shows if backorders are allowed.
         /// </summary>
@@ -165,7 +165,7 @@ namespace WordPressPCL.Models
         /// Product weight.
         /// </summary>
         [JsonProperty("weight", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Weight { get; set; }
+        public string? Weight { get; set; }
         /// <summary>
         /// Product dimensions
         /// </summary>
@@ -175,7 +175,7 @@ namespace WordPressPCL.Models
         /// Shipping class slug.
         /// </summary>
         [JsonProperty("shipping_class", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string ShippingClass { get; set; }
+        public string? ShippingClass { get; set; }
         /// <summary>
         /// Shipping class ID.
         /// </summary>
@@ -190,7 +190,7 @@ namespace WordPressPCL.Models
         /// List of attributes. 
         /// </summary>
         [JsonProperty("attributes", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<ProductAttribute> Attributes { get; set; }
+        public List<ProductAttribute>? Attributes { get; set; }
         /// <summary>
         /// Menu order, used to custom sort products
         /// </summary>
@@ -200,8 +200,10 @@ namespace WordPressPCL.Models
         /// Meta data
         /// </summary>
         [JsonProperty("meta_data", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<MetaData> Metadata { get; set; }
-
+        public List<MetaData>? Metadata { get; set; }
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ProductVariation() { }
     }
 }

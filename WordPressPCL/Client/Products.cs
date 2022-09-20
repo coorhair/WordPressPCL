@@ -36,7 +36,7 @@ namespace WordPressPCL.Client
         /// <param name="filter">conditions to filter return products</param>
         /// <param name="useAuth">Send request with authentication header</param>
         /// <returns>List of products</returns>
-        public Task<IEnumerable<Product>> ListProductsAsync(ProductsQueryBuilder filter, bool useAuth = true)
+        public Task<IEnumerable<Product>?> ListProductsAsync(ProductsQueryBuilder filter, bool useAuth = true)
         {
             return QueryAsync(filter, useAuth);
         }
@@ -46,7 +46,7 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="entity">product for creating</param>
         /// <returns>product detail</returns>
-        public Task<Product> CreateProductAsync(Product entity)
+        public Task<Product?> CreateProductAsync(Product entity)
         {
             return CreateAsync(entity);
         }
@@ -57,7 +57,7 @@ namespace WordPressPCL.Client
         /// <param name="productId">product ID</param>
         /// <param name="useAuth">send request with authentication header</param>
         /// <returns>product detail</returns>
-        public Task<Product> GetProductAsync(object productId, bool useAuth = true)
+        public Task<Product?> GetProductAsync(object productId, bool useAuth = true)
         {
             return GetByIDAsync(productId, false, useAuth);
         }
@@ -67,7 +67,7 @@ namespace WordPressPCL.Client
         /// </summary>
         /// <param name="entity">product for updating</param>
         /// <returns>product detail</returns>
-        public Task<Product> UpdateProductAsync(Product entity)
+        public Task<Product?> UpdateProductAsync(Product entity)
         {
             return Update2Async(entity);
         }

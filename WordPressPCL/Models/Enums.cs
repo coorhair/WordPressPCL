@@ -710,4 +710,51 @@ namespace WordPressPCL.Models
         [EnumMember(Value = "onbackorder")]
         OnBackOrder
     }
+
+    /// <summary>
+    /// Filter customer by role (WooCommerce)
+    /// </summary>
+    public enum CustomerRole
+    {
+        /// <summary>
+        /// All
+        /// </summary>
+        [EnumMember(Value = "all")]
+        All,
+        /// <summary>
+        /// Administrator
+        /// </summary>
+        [EnumMember(Value = "administrator")]
+        Administrator,
+        /// <summary>
+        /// Editor
+        /// </summary>
+        [EnumMember(Value = "editor")]
+        Editor,
+        /// <summary>
+        /// Author
+        /// </summary>
+        [EnumMember(Value = "author")]
+        Author,
+        /// <summary>
+        /// Contributor
+        /// </summary>
+        [EnumMember(Value = "contributor")]
+        Contributor,
+        /// <summary>
+        /// Subscriber
+        /// </summary>
+        [EnumMember(Value = "subscriber")]
+        Subscriber,
+        /// <summary>
+        /// Customer
+        /// </summary>
+        [EnumMember(Value = "customer")]
+        Customer,
+        /// <summary>
+        /// Shop manager
+        /// </summary>
+        [EnumMember(Value = "shop_manager")]
+        ShopManager
+    }
 }
